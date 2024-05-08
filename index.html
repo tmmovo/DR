@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="icon.png" type="image/png">
+<title>我的世界服务器介绍</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url('ba.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        animation: fadeInBackground 0.5s ease-in-out;
+    }
+    @keyframes fadeInBackground {
+        from {
+            background-color: white;
+        }
+        to {
+            background-color: transparent;
+        }
+    }
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        text-align: center;
+    }
+    h1 {
+        color: #333;
+    }
+    p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+    .animation {
+        animation: fadeIn 1.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    #dragon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 35px;
+        color: #ffffff;
+        white-space: nowrap;
+        transition: top 3s, left 3s;
+    }
+    #obstacle {
+        mix-blend-mode: difference; /* 使用差值混合模式 */
+    }
+    #batteryStatus {
+        font-size: 15px;
+        margin: 2px;
+        padding: 2px;
+        border: 1px solid #ccc;
+        border: none;
+        text-align: right;
+        border-radius: 5px;
+        color: #ffffff;
+    }
+    .info-container {
+        margin: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
+    <div id="batteryStatus"></div>
+    <div id="dragon">梦幻之域</div>
+    <script>
+        // 文字龙
+        function moveDragon() {
+            var dragon = document.getElementById("dragon");
+            var maxWidth = window.innerWidth - dragon.offsetWidth;
+            var maxHeight = window.innerHeight - dragon.offsetHeight;
+            var newX = Math.floor(Math.random() * maxWidth);
+            var newY = Math.floor(Math.random() * maxHeight);
+            dragon.style.top = newY + "px";
+            dragon.style.left = newX + "px";
+            // 强制重绘，使 transition 生效
+            dragon.getBoundingClientRect();
+            dragon.style.transition = "top 3s, left 3s";
+            dragon.style.top = newY + "px";
+            dragon.style.left = newX + "px";
+            setTimeout(moveDragon, 3000);
+        }
+        moveDragon();
+        // 电量显示
+        function updateBatteryStatus() {
+            navigator.getBattery().then(function(battery) {
+                // 获取电池电量，并将其乘以100转换为百分比
+                var batteryLevel = battery.level * 100;
+                // 获取充电状态
+                var charging = battery.charging;
+                // 构建显示文本
+                var statusText = "电池电量: " + batteryLevel.toFixed(2) + "%";
+                if (charging) {
+                    statusText += "(充电中)";
+                }
+                // 更新div内容
+                document.getElementById("batteryStatus").textContent = statusText;
+            });
+        }
+        // 初次加载页面时更新电量信息
+        updateBatteryStatus();
+    
+        // 每隔一分钟更新一次电量信息
+        setInterval(updateBatteryStatus, 2000);// 毫秒
+    </script>
+    <div class="container animation" id="obstacle">
+        <h1>欢迎来到我的世界梦幻之域服务器</h1>
+        <p>生存+RPG玩法 | 副本玩法 | 抽奖玩法 | 节日任务做完领取丰富奖励 | 我爱你们的赞助</p>
+        <p>服务器IP: 000.00.00:00000</p>
+    </div>
+    <div class="container animation" id="obstacle">
+          <p>QQ: 1708039100</p>
+        <p>在线时间: 下午5点回复消息</p>
+        <p style="color: red;">重要消息说明：如果有重要消息如：服务器崩溃;</p>
+        <p style="color: red;">有人卡服请私聊服主QQ，如果有人开挂请游戏内私聊在线的监狱长</p>
+    </div> 
+</body>
+</html>
